@@ -29,7 +29,7 @@ Other implementations of Taylor Diagrams in _**R**_ include:
 
 _**R**_-package _openair_ (available from the CRAN repository) which has a function _TaylorDiagram()_; and,
 
-An implementation using _ggplot2_ in the GitHub Repository ![
+An implementation using _ggplot2_ in the GitHub Repository [https://github.com/shirazipooya/Taylor.Diagram](https://github.com/shirazipooya/Taylor.Diagram)
 
 
 ## References
