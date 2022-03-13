@@ -6,9 +6,9 @@ Taylor (2001) published a paper which introduced an innovative plot or diagram w
 
 Originally developed for applications in the atmospheric sciences (e.g. meteorology, climatology), Taylor Diagrams have been applied other disciplines including hydrology.
 
-Curiously, they have not been adopted by developers of ecological nioche models (also referred to as species distribution models). This repository is my humble attempt to provide a useful script to allow ENM developers to use Taylor Diagrams.
+Curiously, they have not been adopted by developers of ecological niche models (also referred to as species distribution models). This repository is my humble attempt to provide a useful script to allow ENM developers to use Taylor Diagrams.
 
-This script is derived from the source code for the function _taylor.diagram()_ from the _**R**_-package plotrix written by Olivier Eterradossi and Jim Lemon.
+This script is derived from the source code for the function _taylor.diagram()_ from the _**R**_-package _plotrix_ written by Olivier Eterradossi and Jim Lemon.
 
 The original source code is available [here](https://CRAN.R-project.org/package=plotrix).
 
