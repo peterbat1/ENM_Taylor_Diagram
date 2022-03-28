@@ -16,7 +16,7 @@ Some aspects of the original data flow and some methods/code fragments have been
 
 ## Downloading and using the function:
 
-1. Click on the green **Code** button Itop right of screen) to download a zip file containing the _**R**_-script.
+1. Click on the green **Code** button (top right of screen) to download a zip file containing the _**R**_-script.
 
 2. Unzip the file in a folder of your chooosing.
 
