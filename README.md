@@ -14,6 +14,18 @@ The original source code is available [here](https://CRAN.R-project.org/package=
 
 Some aspects of the original data flow and some methods/code fragments have been retained in the version available in this repository. Although there are some borrowings from the original function, this version is a major re-write using the features and functions of the _**R**_-packages _ggplot2_ and _ggrepel_.
 
+## Downloading and using the function:
+
+1. Click on the green **Code** button (top right of screen) to download a zip file containing the _**R**_-script.
+
+2. Unzip the file in a folder of your chooosing.
+
+3. To use the function in your _**R**_-scripts, using the source() funciton to load the script into your _**R**_ session:
+
+```
+source("path/to/taylor_diagram.R")
+```
+
 ## Dependencies:
 
 This function requires the _**R**_ libraries _ggplot2_ and _ggrepel_.
