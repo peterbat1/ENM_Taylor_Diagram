@@ -43,13 +43,15 @@ library(ggrepel)
 #' @param plot_title character string. Title to be added to the plot.
 #' @param show_labels logical. Show labels alongside plot symbols? Default is FALSE.
 #' @param model_labels character vector. Character vector of names to be used when model labels re to be plotted. If show_labels == TRUE but no values are passed in this parameter, column names from the data.frame 'data' are use.d
-#' @param rmsd_col character or colour value. Colour used to plot the RMSD circles centered on the reference datum. Can can be a recognised R colour name or a hexadecimal RGB value.
+#' @param rmsd_col character or colour value. Colour used to plot the RMSD circles centered on the reference datum. Can be a recognised R colour name or a hexadecimal RGB value.
 #'
 #' @details 
 #' The development of this function was inspired by the function \emph{taylor.diagram} in the package \emph{plotrix}. Some aspects of the code are borrowed from the \emph{plotrix} function and are acknowledged in comments with the source code.
 #'
 #'
 #' @return
+#' A ggplot2 object representing the Taylor Diagram for the submitted data
+#' 
 #' @export
 #'
 #' @examples
@@ -66,9 +68,13 @@ taylor_diagram <- function(data,
   if (!(plot_type %in% c("half", "full")))
     stop("plot_type must be one of 'half' or 'full")
   
-  if (!is.na(point_palette))
+  if (length(point_palette) > 1)
+  {
+    if (inherits(try(col2rgb(point_palette)), "try-error"))
+      stop("One or more colour names or values given in point_palette is not recognised by R")
+  }
     
-    if (!is.logical(normalise)) stop("normalise can only be TRUE or FALSE")
+  if (!is.logical(normalise)) stop("normalise can only be TRUE or FALSE")
   
   if (!is.logical(show_labels)) stop("show_labels can only be TRUE or FALSE")
   
@@ -108,13 +114,13 @@ taylor_diagram <- function(data,
                   std_dev = apply(data, 2, sd))
   
   # Make a data.frame of transformed values to make plotting a little easier...
-    d_trans <- data.frame(model = d$model,
-                          x = d$std_dev * cos(acos(d$correl)),
-                          y = d$std_dev * sin(acos(d$correl)),
-                          stringsAsFactors = FALSE)
-
+  d_trans <- data.frame(model = d$model,
+                        x = d$std_dev * cos(acos(d$correl)),
+                        y = d$std_dev * sin(acos(d$correl)),
+                        stringsAsFactors = FALSE)
+  
   # Compute some important 'control' values...
-  if (is.na(point_palette))
+  if (is.na(point_palette[1]))
     point_palette <- c("black", heat.colors(ncol(data) - 1))
   
   sd_max <- 1.25 * max(d$std_dev)
@@ -209,7 +215,7 @@ taylor_diagram <- function(data,
              x = x_label_pos,
              y = 0.35 * y_limit_lower,
              label = "Standard deviation",
-             size = 3) +
+             size = 2.5) +
     annotate("text", # y-axis tick labels
              x = -0.25 * axis_step,
              y = axis_ticks[axis_ticks > 0],
@@ -217,7 +223,8 @@ taylor_diagram <- function(data,
              size = 2) +
     theme(panel.border = element_blank(),
           panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank()) +
+          panel.grid.minor = element_blank(),
+          plot.title = element_text(size = 8)) +
     ylab("") +
     xlab("") +
     ggtitle(plot_title)
@@ -460,7 +467,7 @@ taylor_diagram <- function(data,
   baseFig <- baseFig +
     geom_point(size = 2,
                shape = c(22, rep(24, ncol(data) - 1)),
-               fill = c("black", heat.colors(ncol(data) - 1)))
+               fill = point_palette) #c("black", heat.colors(ncol(data) - 1)))
   
   if (show_labels)
   {
@@ -473,7 +480,8 @@ taylor_diagram <- function(data,
       ggrepel::geom_text_repel(data = label_data,
                                aes(x = x,
                                    y = y,
-                                   label = label))
+                                   label = label),
+                               size = 3)
   }
   
   return(baseFig)
